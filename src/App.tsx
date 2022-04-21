@@ -1,62 +1,50 @@
-import './App.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import RawJSON from './components/RawJSON';
-import { useEffect, useState } from 'react';
-import PostsTable from './components/PostsTable';
+import PostTable from './component/PostTable';
+import Rawjson from './component/Rawjson';
 
-const App: React.FC = () => {
-  const [page, setPage] = useState(1);
-  const [storedData, setStoredData]: any = useState([]);
-  const navigate = useNavigate();
-  let interval: NodeJS.Timer;
+const App = () => {
+	const [data, setData]:any = useState<any>([]);
+	const [page, setPage]:any = useState(1)
+	let interval:NodeJS.Timer;
+	const navigate =useNavigate()
 
-  const fetchTableData = async () => {
-    const response = await fetch(
-      `https://hn.algolia.com/api/v1/search_by_date?query=story&page=${page}`
-    );
-    const resData = await response.json();
-    
-  console.log(resData)
-    if (!storedData.includes(...resData.hits)) {
-      setStoredData([...storedData,  ...resData.hits ]);
-    }
-  };
+	const fetchData = async()=>{
+		try{
+			const res = await axios.get(`https://hn.algolia.com/api/v1/search_by_date?query=story&page=${page}`)
+			console.log(res)
+			if(!data.includes([...res.data.hits])){
+				setData([...data, ...res.data.hits])
+			}
+		}
+		catch(e){
+			console.log(e);
+		}
+	}
 
+	const handelPage = ()=>{
+		setPage((prev:any)=>prev+1)
+	}
 
-  const handelPage = ()=>{
-    setPage((page)=>page+1)
-    console.log('page called');
-    // console.log(storedData)
-  }
+	useEffect(()=>{
+		console.log(page);
+		fetchData();
+		
+	},[page])
 
-  useEffect(() => {
-    fetchTableData();
-  }, [page]);
-
-  useEffect(()=>{
-    interval = setInterval(handelPage,10000)
-  },[])
+	useEffect(()=>{
+		interval = setInterval(handelPage, 10000)
+	},[])
 
   return (
-    <div className="app">
-           { <Routes>
-        
-        <Route
-          path="/"
-          element={
-            <PostsTable
-              storedData={storedData}
-              page={page}
-              setPage={setPage}
-              navigate={navigate}
-            />
-          }
-        />
-         <Route path='/jsondata' element={<RawJSON/>}/>
-      </Routes>}
-    </div>
-  );
-};
+	<div>
+		<Routes>
+			<Route path='/' element={<PostTable data={data} setPage={setPage}/> }/>
+			<Route path='/rawjson' element={<Rawjson navigate={navigate}/>}/>
+		</Routes>
+	</div>
+  )
+}
 
-
-export default App;
+export default App
