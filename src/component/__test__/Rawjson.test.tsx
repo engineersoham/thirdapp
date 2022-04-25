@@ -1,6 +1,6 @@
 import { screen, render, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import App from "../App";
+import App from "../../App";
 import PostTable from "../component/PostTable";
 import Rawjson from "../component/Rawjson";
 
