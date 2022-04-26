@@ -1,8 +1,8 @@
 import { screen, render, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import App from "../../App";
-import PostTable from "../component/PostTable";
-import Rawjson from "../component/Rawjson";
+import PostTable from "../PostTable";
+import Rawjson from "../Rawjson";
 
 it('snap of table',()=>{
     const tree = render(

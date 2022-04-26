@@ -11,7 +11,7 @@ const PostTable:React.FC<Props> = ({...props}) => {
     const navigate = useNavigate();
 
     const handelClick = (item:any)=>{
-        alert(JSON.stringify(item))
+        //alert(JSON.stringify(item))
         navigate('/rawjson',{state:item})
     }
 
@@ -28,7 +28,7 @@ const PostTable:React.FC<Props> = ({...props}) => {
 
   return (
     <div>
-        {props.data === undefined ? (<><CircularProgress/>Loading...</> ):
+        {props.data <=1 ? (<><CircularProgress/>Loading...</> ):
 
         (<Table title='table'>
         <TableHead>

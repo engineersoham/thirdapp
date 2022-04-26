@@ -1,7 +1,7 @@
 import { screen, render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import App from "../../App";
-import PostTable from "../component/PostTable";
+import PostTable from "../PostTable"
 
 it('snap of table',()=>{
     const tree = render(

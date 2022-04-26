@@ -16,7 +16,7 @@ const Rawjson:React.FC<Props> = ({...props}) => {
 
   return (
     <div>
-        <Button variant='contained' onClick={()=>props.navigate(-1)}>BACK</Button>
+        <Button sx={{m:2}} variant='contained' onClick={()=>props.navigate(-1)}>BACK</Button>
         <Typography variant='h4' sx={{textAlign:'center', m:3}}>RAW JSON DATA</Typography>
     
     <pre>
