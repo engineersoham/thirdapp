@@ -48,7 +48,7 @@ const PostTable:React.FC<Props> = ({...props}) => {
         <TableBody>
             {Array.from(props.data).map((item:any,idx:any)=>{
                 return(
-                    <TableRow key={idx} onClick={()=>handelClick(item)}>
+                    <TableRow data-testid={`post-${idx}`} key={idx} onClick={()=>handelClick(item)}>
                         <TableCell>
                             {item.title ? item.title : <i>data not found</i> }
                         </TableCell>
